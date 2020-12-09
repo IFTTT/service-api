@@ -1,6 +1,6 @@
 openapi: 3.0.0
 servers:
-  - url: '{scheme}://{hostname}/ifttt/v1'
+  - url: '{scheme}://{hostname}'
     variables:
       scheme:
         default: http
@@ -13,7 +13,7 @@ info:
   version: 1.0.0
   description: An API that an IFTTT service must implement.
 paths:
-  /user/info:
+  /ifttt/v1/user/info:
     get:
       summary: Returns user info
       operationId: getUserInfo
@@ -34,7 +34,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /triggers/{stepSlug}:
+  /ifttt/v1/triggers/{stepSlug}:
     post:
       summary: Checks trigger
       operationId: getTriggerEvents
@@ -67,7 +67,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /triggers/{stepSlug}/fields/{stepFieldSlug}/options:
+  /ifttt/v1/triggers/{stepSlug}/fields/{stepFieldSlug}/options:
     post:
       summary: Get trigger field options
       operationId: getTriggerFieldOptions
@@ -99,7 +99,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /triggers/{stepSlug}/fields/{stepFieldSlug}/validate:
+  /ifttt/v1/triggers/{stepSlug}/fields/{stepFieldSlug}/validate:
     post:
       summary: Validate a trigger field
       operationId: validateTriggerField
@@ -137,7 +137,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /triggers/{stepSlug}/fields/validate:
+  /ifttt/v1/triggers/{stepSlug}/fields/validate:
     post:
       summary: Validate trigger fields
       operationId: validateTriggerFields
@@ -170,7 +170,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /actions/{stepSlug}:
+  /ifttt/v1/actions/{stepSlug}:
     post:
       summary: Run action
       operationId: runAction
@@ -203,7 +203,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /actions/{stepSlug}/fields/{stepFieldSlug}/options:
+  /ifttt/v1/actions/{stepSlug}/fields/{stepFieldSlug}/options:
     post:
       summary: Get action field options
       operationId: getActionFieldOptions
@@ -235,7 +235,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /queries/{stepSlug}:
+  /ifttt/v1/queries/{stepSlug}:
     post:
       summary: Perform query
       operationId: performQuery
@@ -268,7 +268,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /queries/{stepSlug}/fields/{stepFieldSlug}/options:
+  /ifttt/v1/queries/{stepSlug}/fields/{stepFieldSlug}/options:
     post:
       summary: Get query field options
       operationId: getQueryFieldOptions
