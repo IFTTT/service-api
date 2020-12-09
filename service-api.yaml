@@ -17,9 +17,34 @@ paths:
     get:
       summary: Service status
       operationId: getStatus
+      security:
+        - serviceAuth: [ ]
       responses:
         '200':
           description: successful operation
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /ifttt/v1/test/setup:
+    post:
+      summary: Sets up and returns test data
+      operationId: setupTest
+      security:
+        - serviceAuth: [ ]
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSetupResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '503':
@@ -28,6 +53,8 @@ paths:
     get:
       summary: Returns user info
       operationId: getUserInfo
+      security:
+        - userAuth: [ ]
       responses:
         '200':
           description: successful operation
@@ -49,6 +76,8 @@ paths:
     post:
       summary: Checks trigger
       operationId: getTriggerEvents
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -82,6 +111,8 @@ paths:
     post:
       summary: Get trigger field options
       operationId: getTriggerFieldOptions
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -114,6 +145,8 @@ paths:
     post:
       summary: Validate a trigger field
       operationId: validateTriggerField
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -152,6 +185,8 @@ paths:
     post:
       summary: Validate trigger fields
       operationId: validateTriggerFields
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -185,6 +220,8 @@ paths:
     post:
       summary: Run action
       operationId: runAction
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -218,6 +255,8 @@ paths:
     post:
       summary: Get action field options
       operationId: getActionFieldOptions
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -250,6 +289,8 @@ paths:
     post:
       summary: Perform query
       operationId: performQuery
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -283,6 +324,8 @@ paths:
     post:
       summary: Get query field options
       operationId: getQueryFieldOptions
+      security:
+        - userAuth: [ ]
       parameters:
         - name: stepSlug
           in: path
@@ -313,6 +356,29 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
 components:
   schemas:
+    TestSetupResponse:
+      title: Test setup response
+      description: Test data
+      type: object
+      required: [ data ]
+      properties:
+        data:
+          type: object
+          required: [ samples ]
+          properties:
+            accessToken:
+              type: string
+            samples:
+              type: object
+              properties:
+                triggers:
+                  type: object
+                triggerFieldValidations:
+                  type: object
+                actions:
+                  type: object
+                actionRecordSkipping:
+                  type: object
     UserInfoResponse:
       title: User info response
       description: Information about a user
@@ -411,7 +477,7 @@ components:
               type: integer
               format: int32
       additionalProperties: # Ingredients
-        type: string
+        type: object
     StepFieldOptionsResponse:
       description: Step field options response.
       type: object
@@ -637,3 +703,12 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
 
+  securitySchemes:
+    serviceAuth:
+      type: apiKey
+      in: header
+      name: IFTTT-Service-Key
+    userAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 Access Token
