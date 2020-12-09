@@ -13,6 +13,17 @@ info:
   version: 1.0.0
   description: An API that an IFTTT service must implement.
 paths:
+  /ifttt/v1/status:
+    get:
+      summary: Service status
+      operationId: getStatus
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /ifttt/v1/user/info:
     get:
       summary: Returns user info
