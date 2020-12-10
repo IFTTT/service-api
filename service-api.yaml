@@ -54,6 +54,7 @@ paths:
       summary: Returns user info
       operationId: getUserInfo
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       responses:
         '200':
@@ -77,6 +78,7 @@ paths:
       summary: Checks trigger
       operationId: getTriggerEvents
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -112,6 +114,7 @@ paths:
       summary: Get trigger field options
       operationId: getTriggerFieldOptions
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -146,6 +149,7 @@ paths:
       summary: Validate a trigger field
       operationId: validateTriggerField
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -186,6 +190,7 @@ paths:
       summary: Validate trigger fields
       operationId: validateTriggerFields
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -221,6 +226,7 @@ paths:
       summary: Run action
       operationId: runAction
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -256,6 +262,7 @@ paths:
       summary: Get action field options
       operationId: getActionFieldOptions
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -290,6 +297,7 @@ paths:
       summary: Perform query
       operationId: performQuery
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -325,6 +333,7 @@ paths:
       summary: Get query field options
       operationId: getQueryFieldOptions
       security:
+        - serviceAuth: [ ]
         - userAuth: [ ]
       parameters:
         - name: stepSlug
@@ -702,7 +711,6 @@ components:
         'application/json':
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-
   securitySchemes:
     serviceAuth:
       type: apiKey
